@@ -1,16 +1,10 @@
 
 function encrypteer() {
 
-  var encrypted = CryptoJS.AES.encrypt("**MySEcret stuff", "Secret Passphrase");
-    console.log("encrypted",encrypted);
-var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
-console.log("decrypted", CryptoJS.enc.Utf8.stringify( decrypted));
-
-  //var key = CryptoJS.enc.Hex.parse(generateKey(32));
-  var key = generateKey(32);
+  var key = generateKey(32); //gaat een random string aanmaken en deze gebruiken als encryptiesleutel
   document.getElementById("key").innerHTML = key //gaat het encryptiesleutel tonen
   
-  var msg = document.getElementById("text").value;
+  var msg = document.getElementById("text").value; //gaat het bericht ophalen
 
   var enc = CryptoJS.AES.encrypt(msg,key);
 
@@ -24,14 +18,11 @@ console.log("decrypted", CryptoJS.enc.Utf8.stringify( decrypted));
 }
 
 function decrypteer() {
-  var encryptedMessage = document.getElementById("EncryptedValue").innerHTML;
-  var key = document.getElementById("key").innerHTML; //krijgt een string terug
-  // var hexkey = stringToHex(key)
+  var encryptedMessage = document.getElementById("EncryptedValue").innerHTML; //gaat het geëncrypteerd bericht ophalen
+  var key = document.getElementById("key").innerHTML; //Gaat de key ophalen
 
-  var decrypt = CryptoJS.AES.decrypt(encryptedMessage, key);
-  document.getElementById("decrypted").innerHTML = decrypt;//toont het bericht
-  console.log(decrypt)
-  
+  var decrypt = CryptoJS.AES.decrypt(encryptedMessage, key); //gaat encrypted message decrypteren met behulp van de key
+  document.getElementById("decrypted").innerHTML = CryptoJS.enc.Utf8.stringify(decrypt); //toont het bericht
 }
 
 const generateKey = size => {
@@ -41,26 +32,11 @@ const generateKey = size => {
   for (let i = 0; i < size; i++) {
     result.push(hexRef[Math.floor(Math.random() * 16)]);
   }
-  console.log(result)
   return result.join('');
 }
 
-// function stringToHex(key){
-//   let result = [];
-
-//   for (let i = 0; i < key.length; i++) {
-//     result.push(key[i] = " " + key[i]);
-//   }
-//   console.log(result)
-
-//   return result.join('');
-// }
-
-//dit maakt een random 16 bit hexa getal aan. Die we nodig hebben voor een random Encryptie sleutel
-
-
-
-
-
-// wachtwoord, encrypteerd bericht slaan we op in een databank.
-// het probleem hier is dat er geen random code aangemaakt word waarmee er geëncrypteerd word.
+//dit is de simpele versie
+// var encrypted = CryptoJS.AES.encrypt("**MySEcret stuff", "Secret Passphrase");
+// console.log("encrypted",encrypted);
+// var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+// console.log("decrypted", CryptoJS.enc.Utf8.stringify( decrypted));
